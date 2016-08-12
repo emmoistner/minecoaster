@@ -1,11 +1,12 @@
 let config
-if (process.env.PRODUCTION) {
+
+if (ENV.DEV) {
   config = {
-    host: 'http://mine.cool'
+    host: 'http://localhost:8080'
   }
 } else {
   config = {
-    host: 'http://localhost:8080'
+    host: 'http://mine.cool'
   }
 }
 

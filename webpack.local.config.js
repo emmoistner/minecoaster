@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /**
@@ -33,6 +34,9 @@ module.exports = {
 
   // Necessary plugins for hot load
   plugins: [
+    new webpack.DefinePlugin({
+      ENV: require(path.join(__dirname, './env_dev'))
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new ExtractTextPlugin('style.css', { allChunks: true })

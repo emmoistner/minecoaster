@@ -15,15 +15,10 @@ import favicon from 'serve-favicon'
 
 app.use(favicon(__dirname + '/build/favicon.ico'))
 
-// Serve index page
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/build/index.html')
-})
-
 // Serve application file depending on environment
 app.get('/app.js', (req, res) => {
+  res.sendFile(__dirname + '/build/app.js');
   if (process.env.PRODUCTION) {
-    res.sendFile(__dirname + '/build/app.js');
   } else {
     res.redirect('//localhost:9090/build/app.js');
   }
@@ -57,6 +52,12 @@ app.get('/style.css', (req, res) => {
     res.redirect('//localhost:9090/build/style.css');
   }
 });
+
+// Serve index page
+app.get('/*', (req, res) => {
+  res.sendFile(__dirname + '/build/index.html')
+})
+
 
 /*************************************************************
  *

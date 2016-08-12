@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /**
@@ -30,5 +31,11 @@ module.exports = {
   postcss: [
     require('autoprefixer'),
     require('postcss-nested')
+  ]
+
+  plugins: [
+    new webpack.DefinePlugin({
+      ENV: require(path.join(__dirname, './env_production'))
+    })
   ]
 }
