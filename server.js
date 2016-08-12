@@ -15,6 +15,11 @@ import favicon from 'serve-favicon'
 
 app.use(favicon(__dirname + '/build/favicon.ico'))
 
+// Serve index page
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/build/index.html')
+})
+
 // Serve application file depending on environment
 app.get('/app.js', (req, res) => {
   if (process.env.PRODUCTION) {
@@ -23,6 +28,13 @@ app.get('/app.js', (req, res) => {
     res.redirect('//localhost:9090/build/app.js');
   }
 });
+
+// Serve up static map assests
+app.use(express.static(__dirname + '/map'))
+
+app.get('/map', (req, res) => {
+  res.sendFile(__dirname + '/map/map.html')
+})
 
 app.get('/status', (req, res) => {
   let params = { type: 'minecraftping', host: 'mine.cool' }
@@ -45,12 +57,6 @@ app.get('/style.css', (req, res) => {
     res.redirect('//localhost:9090/build/style.css');
   }
 });
-
-// Serve index page
-app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/build/index.html');
-});
-
 
 /*************************************************************
  *

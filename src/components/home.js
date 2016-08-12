@@ -13,6 +13,7 @@ import {
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors'
 
+import config from '../config'
 import Stuff from './stuff'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -56,20 +57,31 @@ export default class HomePage extends Component {
   componentDidMount() {
     function poll(timeout = 20000) {
       function fetchStatus(timeout) {
-        return fetch('http://localhost:8080/status')
+        return fetch(`${config.host}/status`)
           .then((response) => {
-            return response.json()
+            if (response && response.status === 200) {
+              return response.json()
+            } else {
+              return null
+            }
           })
           .then((response) => {
-            const newState = {
-              players: _.sortBy(response.players, ['name']),
-              maxplayers: response.maxplayers,
-              version: response.raw.version,
-              description: response.raw.description
+            if (response) {
+              const newState = {
+                players: _.sortBy(response.players, ['name']),
+                maxplayers: response.maxplayers,
+                version: response.raw.version,
+                description: response.raw.description
+              }
+              this.setState(newState)
             }
-            this.setState(newState)
+
             poll = poll.bind(this)
             return poll(timeout)
+          })
+          .catch(e => {
+            poll = poll.bind(this)
+            return poll(100000)
           })
       }
       setTimeout(fetchStatus.bind(this), timeout)
