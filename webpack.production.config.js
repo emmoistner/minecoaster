@@ -14,7 +14,10 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('style.css', { allChunks: true })
+    new ExtractTextPlugin('style.css', { allChunks: true }),
+    new webpack.DefinePlugin({
+      ENV: require(path.join(__dirname, './env_production'))
+    })
   ],
 
   module: {
@@ -31,11 +34,5 @@ module.exports = {
   postcss: [
     require('autoprefixer'),
     require('postcss-nested')
-  ]
-
-  plugins: [
-    new webpack.DefinePlugin({
-      ENV: require(path.join(__dirname, './env_production'))
-    })
   ]
 }
