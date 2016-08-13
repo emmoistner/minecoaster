@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import _ from 'lodash'
 import { connect } from 'react-redux'
-import { serverPingPoll } from '../actions/server'
 
 import Stuff from '../components/stuff'
 
