@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route, IndexRoute, browserHistory, Router } from 'react-router'
 
-import App from './App'
-import HomePage from '../../components/home'
-import Player from '../../components/player'
+import App from './app'
+import HomePage from '../components/home'
+import Player from '../components/player'
 
 
 export default (

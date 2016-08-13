@@ -1,0 +1,1 @@
+ scp -i ~Ethan/Downloads/minecraft-key.pem -r ec2-user@mine.cool:minecraft/output ~Ethan/Desktop/map2
